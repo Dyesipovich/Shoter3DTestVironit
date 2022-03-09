@@ -91,7 +91,9 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
-        private bool _isProne;
+        private bool _jumpStopProne;
+        private bool _jumpStopCrouch;
+
 
         private void Awake()
         {
@@ -231,39 +233,34 @@ namespace StarterAssets
             }
         }
 
-        private enum ProneState
-        {
-            ProneLieDown,
-            ProneLieUp,
-        }
-        private ProneState _state = ProneState.ProneLieUp;
-
         private void ProneAndProneUp()
         {
             if (_input.prone)
             {
+                _jumpStopProne = !_jumpStopProne;
                 _animator.SetTrigger("Prone");
             }
             _input.prone = false;
         }
-
-
 
         private void CrouchAndCrouchUp()
         {
             if (_input.crouch)
             {
                 _animator.SetBool("Crouch", true);
+                _jumpStopCrouch = true;
             }
             else
             {
                 _animator.SetBool("Crouch", false);
+                _jumpStopCrouch = false;
             }
         }
 
         private void JumpAndGravity()
         {
-            if (Grounded)
+            bool isCanJump = Grounded && !_jumpStopProne && !_jumpStopCrouch;
+            if (isCanJump)
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
