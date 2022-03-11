@@ -15,6 +15,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool crouch;
 		public bool prone;
+		public bool weaponReloading;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -28,67 +29,41 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
 		{
-			MoveInput(value.Get<Vector2>());
+			move = value.Get<Vector2>();
 		}
 
 		public void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
 			{
-				LookInput(value.Get<Vector2>());
+				look = value.Get<Vector2>();
 			}
 		}
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+			jump = value.isPressed;
 		}
 
 		public void OnSprint(InputValue value)
 		{
-			SprintInput(value.isPressed);
+			sprint = value.isPressed;
 		}
 		public void OnCrouch (InputValue value)
         {
-			CrouchInput(value.isPressed);
+			crouch = value.isPressed;
         }
 
 		public void OnProne (InputValue value)
         {
-			ProneInput(value.isPressed);
+			prone = value.isPressed;
         }
-#else
-	// old input sys if we do decide to have it (most likely wont)...
+		public void OnWeaponReload(InputValue value)
+        {
+			weaponReloading = value.isPressed;
+        }
+	
 #endif
-		public void ProneInput(bool newProne)
-		{
-			prone = newProne;
-		}
-
-		public void CrouchInput(bool newCrouch)
-		{
-			crouch = newCrouch;
-		}
-
-		public void MoveInput(Vector2 newMoveDirection)
-		{
-			move = newMoveDirection;
-		} 
-
-		public void LookInput(Vector2 newLookDirection)
-		{
-			look = newLookDirection;
-		}
-
-		public void JumpInput(bool newJumpState)
-		{
-			jump = newJumpState;
-		}
-
-		public void SprintInput(bool newSprintState)
-		{
-			sprint = newSprintState;
-		}
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
@@ -103,7 +78,5 @@ namespace StarterAssets
 		}
 
 #endif
-
-	}
-	
+	}	
 }

@@ -94,6 +94,9 @@ namespace StarterAssets
         private bool _jumpStopProne;
         private bool _jumpStopCrouch;
 
+        private Vector3 _idleCenterCharacterController = new Vector3(0f,0.86f,0f);
+        private float _idleHeightCharacterController = 1.8f;
+
 
         private void Awake()
         {
@@ -124,8 +127,8 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
-            CrouchAndCrouchUp();
-            ProneAndProneUp();
+            Crouch();
+            Prone();
         }
 
         private void LateUpdate()
@@ -233,27 +236,40 @@ namespace StarterAssets
             }
         }
 
-        private void ProneAndProneUp()
+        private void WeaponReloading ()
+        {
+
+        }
+        
+        private void Prone()
         {
             if (_input.prone)
             {
                 _jumpStopProne = !_jumpStopProne;
                 _animator.SetTrigger("Prone");
+                
+                _controller.center = new Vector3(0f, 0.25f, 1f);
+                _controller.height = 0.6f;
             }
             _input.prone = false;
         }
 
-        private void CrouchAndCrouchUp()
+        private void Crouch()
         {
             if (_input.crouch)
             {
                 _animator.SetBool("Crouch", true);
                 _jumpStopCrouch = true;
+                
+                _controller.center = new Vector3 (0f,0.5f,0f);
+                _controller.height = 1f;
             }
             else
             {
                 _animator.SetBool("Crouch", false);
                 _jumpStopCrouch = false;
+                
+                CharacterControllerIdleSate();
             }
         }
 
@@ -344,6 +360,12 @@ namespace StarterAssets
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+        }
+
+        private void CharacterControllerIdleSate()
+        {
+            _controller.center = _idleCenterCharacterController;
+            _controller.height = _idleHeightCharacterController;
         }
     }
 }
