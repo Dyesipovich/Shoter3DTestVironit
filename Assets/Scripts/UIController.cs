@@ -12,4 +12,6 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text Bullet;
     [SerializeField] private TMP_Text FirstTeameScore;
     [SerializeField] private TMP_Text SecondTeameScore;
+
+    
 }
