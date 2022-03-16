@@ -51,15 +51,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Prone",
-                    "type": "Button",
-                    "id": "1e0cdda0-4f79-4de0-8861-b9b60ef26d9e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Shoot",
                     "type": "Button",
                     "id": "13aa8db3-7776-46b7-b0dd-3e4096266d1c",
@@ -272,17 +263,6 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f8611179-4e70-4fbc-96d3-3b3ab3aca275",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Prone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -91,13 +91,11 @@ namespace StarterAssets
         private bool _isProne;
         private bool _isCrouch;
 
-        private Vector3 _idleCenterCharacterController = new Vector3(0f, 0.86f, 0f);
-        private float _idleHeightCharacterController = 1.8f;
+        [SerializeField] private Vector3 _idleCenterCharacterController = new Vector3(0f, 0.86f, 0f);
+        [SerializeField] private float _idleHeightCharacterController = 1.8f;
         
-        private Vector3 _proneCenterCharacterController = new Vector3(0f, 0.25f, 0.9f);
-        private float _proneHeightCharacterController = 0.6f;
-        private Vector3 _crouchCenterCharacterController = new Vector3(0f, 0.5f, 0f);
-        private float _crouchHeightCharacterController = 1f;
+        [SerializeField] private Vector3 _crouchCenterCharacterController = new Vector3(0f, 0.5f, 0f);
+        [SerializeField] private float _crouchHeightCharacterController = 1f;
 
 
         private void Awake()
@@ -130,7 +128,6 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             Crouch();
-            Prone();
         }
 
         private void LateUpdate()
@@ -243,21 +240,6 @@ namespace StarterAssets
 
         }
 
-        private void Prone()
-        {
-            if (_input.prone)
-            {
-                _isProne = !_isProne;
-                _animator.SetTrigger("Prone");
-            }
-            if (_isProne)
-            {
-                _controller.center = _proneCenterCharacterController;
-                _controller.height = _proneHeightCharacterController;
-            }
-            _input.prone = false;
-        }
-
         private void Crouch()
         {
             if (_input.crouch)
@@ -265,15 +247,14 @@ namespace StarterAssets
                 _animator.SetBool("Crouch", true);
                 _isCrouch = true;
 
-                _controller.center = _crouchCenterCharacterController;
-                _controller.height = _crouchHeightCharacterController;
+                CharacterControllerModify(_crouchCenterCharacterController, _crouchHeightCharacterController);
             }
             else
             {
                 _animator.SetBool("Crouch", false);
                 _isCrouch = false;
 
-                CharacterControllerIdleSate();
+                CharacterControllerModify(_idleCenterCharacterController, _idleHeightCharacterController);
             }
         }
 
@@ -366,10 +347,10 @@ namespace StarterAssets
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
         }
 
-        private void CharacterControllerIdleSate()
+        private void CharacterControllerModify(Vector3 centerCharacterController, float heightCharacterController)
         {
-            _controller.center = _idleCenterCharacterController;
-            _controller.height = _idleHeightCharacterController;
+            _controller.center = centerCharacterController;
+            _controller.height = heightCharacterController;
         }
     }
 }

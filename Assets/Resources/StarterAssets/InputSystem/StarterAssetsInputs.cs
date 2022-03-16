@@ -27,11 +27,7 @@ namespace StarterAssets
 #endif
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		public void OnMove(InputValue value)
-		{
-			move = value.Get<Vector2>();
-		}
-
+		public void OnMove(InputValue value) => move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
@@ -39,29 +35,10 @@ namespace StarterAssets
 				look = value.Get<Vector2>();
 			}
 		}
-
-		public void OnJump(InputValue value)
-		{
-			jump = value.isPressed;
-		}
-
-		public void OnSprint(InputValue value)
-		{
-			sprint = value.isPressed;
-		}
-		public void OnCrouch (InputValue value)
-        {
-			crouch = value.isPressed;
-        }
-
-		public void OnProne (InputValue value)
-        {
-			prone = value.isPressed;
-        }
-		public void OnWeaponReload(InputValue value)
-        {
-			weaponReloading = value.isPressed;
-        }
+		public void OnJump(InputValue value) => jump = value.isPressed;
+		public void OnSprint(InputValue value) => sprint = value.isPressed;
+		public void OnCrouch (InputValue value) => crouch = value.isPressed;
+		public void OnWeaponReload(InputValue value) => weaponReloading = value.isPressed;
 	
 #endif
 
