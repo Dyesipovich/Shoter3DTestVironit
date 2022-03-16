@@ -43,27 +43,27 @@
                 },
                 {
                     "name": "Crouch",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "b7cc5554-e529-4ace-84f2-96282679855e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Shoot",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "13aa8db3-7776-46b7-b0dd-3e4096266d1c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Aim",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "a2d11f33-cdb9-49b6-9484-fabe9f62826d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

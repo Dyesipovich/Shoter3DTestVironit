@@ -88,15 +88,13 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
-        private bool _isProne;
         private bool _isCrouch;
 
-        [SerializeField] private Vector3 _idleCenterCharacterController = new Vector3(0f, 0.86f, 0f);
+        [SerializeField] private Vector3 _idleCenterCharacterController = new Vector3(0f, 0.86f, 0.2f);
         [SerializeField] private float _idleHeightCharacterController = 1.8f;
         
-        [SerializeField] private Vector3 _crouchCenterCharacterController = new Vector3(0f, 0.5f, 0f);
+        [SerializeField] private Vector3 _crouchCenterCharacterController = new Vector3(0f, 0.5f, 0.2f);
         [SerializeField] private float _crouchHeightCharacterController = 1f;
-
 
         private void Awake()
         {
@@ -128,6 +126,7 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             Crouch();
+
         }
 
         private void LateUpdate()
@@ -235,11 +234,6 @@ namespace StarterAssets
             }
         }
 
-        private void WeaponReloading()
-        {
-
-        }
-
         private void Crouch()
         {
             if (_input.crouch)
@@ -260,7 +254,7 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
-            bool isCanJump = Grounded && !_isProne && !_isCrouch;
+            bool isCanJump = Grounded && !_isCrouch;
             if (isCanJump)
             {
                 // reset the fall timeout timer
