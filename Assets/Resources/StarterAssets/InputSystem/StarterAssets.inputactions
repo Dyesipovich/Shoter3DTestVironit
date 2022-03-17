@@ -52,9 +52,9 @@
                 },
                 {
                     "name": "Shoot",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "13aa8db3-7776-46b7-b0dd-3e4096266d1c",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -269,7 +269,7 @@
                 {
                     "name": "",
                     "id": "5abaa967-884f-49e1-b592-ce785bd8e6ec",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -280,10 +280,10 @@
                 {
                     "name": "",
                     "id": "c3c60f1f-525b-4982-a62f-a8ae38308d1a",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -83,16 +83,18 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-
-        private const float _threshold = 0.01f;
-
         private bool _hasAnimator;
+
+        private float Sensitivity = 1f;
+        private const float _threshold = 0.01f;
 
         private bool _isCrouch;
 
+        private bool _rotateOnMove = true;
+
         [SerializeField] private Vector3 _idleCenterCharacterController = new Vector3(0f, 0.86f, 0.2f);
         [SerializeField] private float _idleHeightCharacterController = 1.8f;
-        
+
         [SerializeField] private Vector3 _crouchCenterCharacterController = new Vector3(0f, 0.5f, 0.2f);
         [SerializeField] private float _crouchHeightCharacterController = 1f;
 
@@ -161,8 +163,8 @@ namespace StarterAssets
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
-                _cinemachineTargetYaw += _input.look.x * Time.deltaTime;
-                _cinemachineTargetPitch += _input.look.y * Time.deltaTime;
+                _cinemachineTargetYaw += _input.look.x * Time.deltaTime * Sensitivity;
+                _cinemachineTargetPitch += _input.look.y * Time.deltaTime * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -217,9 +219,12 @@ namespace StarterAssets
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
+                if (_rotateOnMove)
+                {
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
 
+            }
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
@@ -345,6 +350,15 @@ namespace StarterAssets
         {
             _controller.center = centerCharacterController;
             _controller.height = heightCharacterController;
+        }
+
+        public void SetSensitivity(float newSensitivity)
+        {
+            Sensitivity = newSensitivity;
+        }
+        public void SetRotateOnMove(bool newRotateOnMove)
+        {
+            _rotateOnMove = newRotateOnMove;
         }
     }
 }
