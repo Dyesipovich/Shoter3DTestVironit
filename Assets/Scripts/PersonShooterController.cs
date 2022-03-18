@@ -42,7 +42,7 @@ public class PersonShooterController : MonoBehaviour
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 20f, _aimColliderLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 500f, _aimColliderLayerMask))
         {
             mouseWorldPosition = raycastHit.point;
         }
@@ -56,7 +56,7 @@ public class PersonShooterController : MonoBehaviour
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * _smoothnessTurningToCrosshair);
 
-            Shoot(mouseWorldPosition);
+            Shot(mouseWorldPosition);
 
         }
         else
@@ -65,13 +65,13 @@ public class PersonShooterController : MonoBehaviour
         }
     }
 
-    private void Shoot (Vector3 mouseWorldPosition)
+    private void Shot (Vector3 mouseWorldPosition)
     {
-        if (_input.shoot)
+        if (_input.shot)
         {
             Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
             Instantiate(_bulletPrefab, _bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-            _input.shoot = false;
+            _input.shot = false;
         }
     }
 

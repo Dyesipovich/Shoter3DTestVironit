@@ -16,7 +16,7 @@ namespace StarterAssets
 		public bool crouch;
 		public bool prone;
 		public bool aim;
-		public bool shoot;
+		public bool shot;
 		public bool weaponReloading;
 
 		[Header("Movement Settings")]
@@ -41,23 +41,20 @@ namespace StarterAssets
 		public void OnSprint(InputValue value) => sprint = value.isPressed;
 		public void OnCrouch (InputValue value) => crouch = value.isPressed;
 		public void OnAim (InputValue value) => aim = value.isPressed;
-		public void OnShoot(InputValue value) => shoot = value.isPressed;
+		public void OnShot(InputValue value) => shot = value.isPressed;
 		public void OnWeaponReload(InputValue value) => weaponReloading = value.isPressed;
 
 #endif
 
 #if !UNITY_IOS || !UNITY_ANDROID
-
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
-
 		private void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-
 #endif
 	}	
 }

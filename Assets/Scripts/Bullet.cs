@@ -1,11 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float _bulletSpeed = 10f;
+    private float _bulletSpeed;
+    private float _bulletDamage;
     private Rigidbody _bulletRigidbody;
+
+    public Bullet(float bulletSpeed, int bulletDamage)
+    {
+        _bulletSpeed = bulletSpeed;
+        _bulletDamage = bulletDamage;
+    }
 
     private void Awake()
     {
