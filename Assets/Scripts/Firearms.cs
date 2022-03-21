@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Firearms : Weapon
 {
-    public static Action<int,int> BulletInitialize;
+    public static Action<int,int> BulletUIInitialize;
 
     [Header("BulletCharacteristics")]
     [SerializeField] private Bullet _bullet;
@@ -21,7 +21,8 @@ public class Firearms : Weapon
 
     private void Awake()
     {
-        BulletInitialize?.Invoke(_numberClips, _numberBulletsInClip);
+        PersonShooterController.WeaponTriggerPressed += DealingDamage;
+        BulletUIInitialize?.Invoke(_numberClips, _numberBulletsInClip);
         Bullets = new Bullet[_numberBulletsInClip];
     }
 
@@ -34,5 +35,8 @@ public class Firearms : Weapon
 
     }
 
-    
+    private void OnDestroy()
+    {
+        PersonShooterController.WeaponTriggerPressed -= DealingDamage;
+    }
 }

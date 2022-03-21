@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PersonShooterController : MonoBehaviour
 {
+    public static event Action WeaponTriggerPressed;
+
     [SerializeField] private CinemachineVirtualCamera _personFollowComponent;
 
     [SerializeField] private float _aimIdle = 25f;
@@ -56,7 +58,7 @@ public class PersonShooterController : MonoBehaviour
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * _smoothnessTurningToCrosshair);
 
-            Shot(mouseWorldPosition);
+            Shoot(mouseWorldPosition);
 
         }
         else
@@ -65,13 +67,15 @@ public class PersonShooterController : MonoBehaviour
         }
     }
 
-    private void Shot (Vector3 mouseWorldPosition)
+    private void Shoot (Vector3 mouseWorldPosition)
     {
-        if (_input.shot)
+        if (_input.shoot)
         {
+            WeaponTriggerPressed?.Invoke();
+            
             Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
             Instantiate(_bulletPrefab, _bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-            _input.shot = false;
+            _input.shoot = false;
         }
     }
 

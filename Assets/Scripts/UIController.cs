@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -15,8 +13,8 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        PersonCharacteristics.HelthInitialize += OnHelthInitialize;
-        Firearms.BulletInitialize += OnBulletInitialize;
+        PersonHealthCharacteristics.HelthUIInitialize += OnHelthInitialize;
+        Firearms.BulletUIInitialize += OnBulletInitialize;
     }
 
     private void OnHelthInitialize(int health)
@@ -35,6 +33,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        PersonCharacteristics.HelthInitialize -= OnHelthInitialize;
+        PersonHealthCharacteristics.HelthUIInitialize -= OnHelthInitialize;
+        Firearms.BulletUIInitialize -= OnBulletInitialize;
     }
 }

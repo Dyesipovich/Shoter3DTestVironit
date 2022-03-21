@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int _bulletDamage { get; private set; }
     private float _bulletSpeed;
-    private float _bulletDamage;
+    
     private Rigidbody _bulletRigidbody;
 
     public Bullet(float bulletSpeed, int bulletDamage)
@@ -19,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        _bulletRigidbody.velocity = transform.forward * _bulletSpeed;
+        _bulletRigidbody.velocity = transform.forward * _bulletSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
