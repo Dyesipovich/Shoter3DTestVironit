@@ -1,4 +1,5 @@
 using UnityEngine;
+using Lean.Pool;
 
 public class Bullet : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Bullet : MonoBehaviour
     /// </summary>
     public void Release()
     {
-        Destroy(gameObject);
+        LeanPool.Despawn(gameObject);
     }
 
     private void OnTriggerEnter(Collider collision)
