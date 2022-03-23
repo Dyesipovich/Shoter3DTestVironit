@@ -1,6 +1,8 @@
 using UnityEngine;
-using Lean.Pool;
+using UnityEngine.Pool;
+using System;
 
+[RequireComponent(typeof(ObjectPool))]
 public class Bullet : MonoBehaviour
 {
     private float _bulletDamage = 1;
@@ -9,6 +11,12 @@ public class Bullet : MonoBehaviour
     private Rigidbody _bulletRigidbody;
     private Rigidbody bulletRigidbody => _bulletRigidbody is null ? _bulletRigidbody = GetComponent<Rigidbody>() : _bulletRigidbody;
 
+    private ObjectPool _objectPool;
+
+    private void Awake()
+    {
+        _objectPool = GetComponent<ObjectPool>();
+    }
     public void Init(float Speed, int Damage)
     {
         _bulletDamage = Damage;
@@ -19,14 +27,9 @@ public class Bullet : MonoBehaviour
     /// <para>Says that this instance is no longer needed</para>
     /// <para>ToDo: Make it Poolable</para>
     /// </summary>
-    public void Release()
-    {
-        LeanPool.Despawn(gameObject);
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (!collision.gameObject.CompareTag("Player")) Release();
-
+        _objectPool.ReturnToPool();
     }
 }

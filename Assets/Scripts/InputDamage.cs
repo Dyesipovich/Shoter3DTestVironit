@@ -20,7 +20,6 @@ public class InputDamage : MonoBehaviour
         {
             var bulletBehaviour = other.gameObject.GetComponent<Bullet>();
             Damage(_isHead ? bulletBehaviour.Damage * _headshotMultiplier : bulletBehaviour.Damage);
-            bulletBehaviour.Release();
         }
     }
 

@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Pool))]
 public class Firearms : Weapon
 {
     public static Action<int,int> BulletUIInitialize;
 
     [Header("BulletCharacteristics")]
-    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField, Min(1)] private int _numberClips;
     [SerializeField, Min(1)] private int _numberBulletsInClip;
     [SerializeField, Min(1)] private float _bulletSpeed;
@@ -17,20 +17,24 @@ public class Firearms : Weapon
     [SerializeField, Min(1)] private float _weaponRateOfFire;
     [SerializeField, Min(1)] private float _weaponRelodSpeed;
 
-    
-
+    private Pool _pool;
     private void Awake()
     {
         PersonShooterController.WeaponTriggerPressed += DealingDamage;
         BulletUIInitialize?.Invoke(_numberClips, _numberBulletsInClip);
+        _pool = GetComponent<Pool>();
     }
-
 
     public override void DealingDamage(Vector3 mouseWorldPosition)
     {
         Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
-        var newBullet = Instantiate(_bulletPrefab, _bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-        if (!newBullet.TryGetComponent<Bullet>(out var bulletBehaviour)) throw new MissingComponentException();
+        var newBullet = _pool.GetFreeElement(_bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+
+        if (!newBullet.TryGetComponent<Bullet>(out var bulletBehaviour))
+        {
+            throw new MissingComponentException();
+        }
+        
         bulletBehaviour.Init(_bulletSpeed, _damage);
     }
     public virtual void WeaponReload()
