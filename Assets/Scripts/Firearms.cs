@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Firearms : Weapon
@@ -7,28 +6,34 @@ public class Firearms : Weapon
     public static Action<int,int> BulletUIInitialize;
 
     [Header("BulletCharacteristics")]
-    [SerializeField] private Bullet _bullet;
+    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField, Min(1)] private int _numberClips;
     [SerializeField, Min(1)] private int _numberBulletsInClip;
     [SerializeField, Min(1)] private float _bulletSpeed;
+    [SerializeField] private Transform _bulletSpawnPosition;
 
     [Space(5)]
     [Header("WeaponCharacteristics")]
     [SerializeField, Min(1)] private float _weaponRateOfFire;
     [SerializeField, Min(1)] private float _weaponRelodSpeed;
 
-    private Bullet[] Bullets;
+    //private Bullet[] Bullets;
 
     private void Awake()
     {
         PersonShooterController.WeaponTriggerPressed += DealingDamage;
         BulletUIInitialize?.Invoke(_numberClips, _numberBulletsInClip);
-        Bullets = new Bullet[_numberBulletsInClip];
+        //Bullets = new Bullet[_numberBulletsInClip];
+        
     }
 
-    public override void DealingDamage()
-    {
 
+    public override void DealingDamage(Vector3 mouseWorldPosition)
+    {
+        Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
+        var newObj = Instantiate(_bulletPrefab, _bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+        if (!newObj.TryGetComponent<Bullet>(out var bulletBehaviour)) throw new MissingComponentException();
+        bulletBehaviour.Init(_bulletSpeed, _damage);
     }
     public virtual void WeaponReload()
     {

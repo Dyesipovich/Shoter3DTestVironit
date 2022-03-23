@@ -2,29 +2,30 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int _bulletDamage { get; private set; }
-    private float _bulletSpeed;
-    
+    private float _bulletDamage = 1;
+    public float Damage => _bulletDamage;
+
     private Rigidbody _bulletRigidbody;
+    private Rigidbody bulletRigidbody => _bulletRigidbody is null ? _bulletRigidbody = GetComponent<Rigidbody>() : _bulletRigidbody;
 
-    public Bullet(float bulletSpeed, int bulletDamage)
+    public void Init(float Speed, int Damage)
     {
-        _bulletSpeed = bulletSpeed;
-        _bulletDamage = bulletDamage;
+        _bulletDamage = Damage;
+        bulletRigidbody.velocity = transform.forward * Speed * Time.deltaTime;
     }
 
-    private void Awake()
-    {
-        _bulletRigidbody = GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
-        _bulletRigidbody.velocity = transform.forward * _bulletSpeed * Time.deltaTime;
-    }
-
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// <para>Says that this instance is no longer needed</para>
+    /// <para>ToDo: Make it Poolable</para>
+    /// </summary>
+    public void Release()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) Release();
+
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PersonShooterController : MonoBehaviour
 {
-    public static event Action WeaponTriggerPressed;
+    public static event Action<Vector3> WeaponTriggerPressed;
 
     [SerializeField] private CinemachineVirtualCamera _personFollowComponent;
 
@@ -21,9 +21,6 @@ public class PersonShooterController : MonoBehaviour
     [SerializeField] private Image _crosshair;
 
     [SerializeField] private float _smoothnessTurningToCrosshair = 1f;
-    
-    [SerializeField] private Transform _bulletPrefab;
-    [SerializeField] private Transform _bulletSpawnPosition;
 
     private StarterAssetsInputs _input;
     private ThirdPersonController _thirdPersonController;
@@ -36,10 +33,10 @@ public class PersonShooterController : MonoBehaviour
 
     private void Update()
     {
-        Aim();
+        AimShooting();
     }
 
-    private void Aim()
+    private void AimShooting()
     {
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -69,14 +66,9 @@ public class PersonShooterController : MonoBehaviour
 
     private void Shoot (Vector3 mouseWorldPosition)
     {
-        if (_input.shoot)
-        {
-            WeaponTriggerPressed?.Invoke();
-            
-            Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
-            Instantiate(_bulletPrefab, _bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-            _input.shoot = false;
-        }
+        if (!_input.shoot || !_input.aim) return;
+        WeaponTriggerPressed?.Invoke(mouseWorldPosition);
+        _input.shoot = false;
     }
 
     private void AimState(float aimValue, float sensitivity, bool crosshairEnabled, bool rotateOnMove)

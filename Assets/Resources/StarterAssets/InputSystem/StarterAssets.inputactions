@@ -36,7 +36,7 @@
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -45,28 +45,28 @@
                     "name": "Crouch",
                     "type": "PassThrough",
                     "id": "b7cc5554-e529-4ace-84f2-96282679855e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "13aa8db3-7776-46b7-b0dd-3e4096266d1c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Shoot",
+                    "type": "PassThrough",
+                    "id": "13aa8db3-7776-46b7-b0dd-3e4096266d1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Aim",
                     "type": "PassThrough",
                     "id": "a2d11f33-cdb9-49b6-9484-fabe9f62826d",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "WeaponReload",

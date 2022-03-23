@@ -41,8 +41,8 @@ namespace StarterAssets
 		public void OnSprint(InputValue value) => sprint = value.isPressed;
 		public void OnCrouch (InputValue value) => crouch = value.isPressed;
 		public void OnAim (InputValue value) => aim = value.isPressed;
-		public void OnShoot(InputValue value) => shoot = value.isPressed;
-		public void OnWeaponReload(InputValue value) => weaponReloading = value.isPressed;
+        public void OnShoot(InputValue value) => shoot = value.isPressed;
+        public void OnWeaponReload(InputValue value) => weaponReloading = value.isPressed;
 
 #endif
 

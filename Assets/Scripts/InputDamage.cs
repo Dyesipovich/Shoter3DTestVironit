@@ -10,7 +10,7 @@ public class InputDamage : MonoBehaviour
     [Space(5)]
     [Header("Headshot")]
     [SerializeField] private bool _isHead;
-    [SerializeField, Min(1), Tooltip("To avoid increasing the hit damage, set the value to 1")] private float _headshotDamageIncrease = 2f;
+    [SerializeField, Min(1), Tooltip("To avoid increasing the hit damage, set the value to 1")] private float _headshotMultiplier = 2f;
     
     private const float convertPercents = 100f;
     
@@ -18,25 +18,15 @@ public class InputDamage : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            int bulletDamage = other.gameObject.GetComponent<Bullet>()._bulletDamage;
-            
-            if (_isHead)
-            {
-                float headshotBulletDamage = bulletDamage * _headshotDamageIncrease;
-                Damage(headshotBulletDamage);
-            }
-            else
-            {
-                Damage(bulletDamage);
-            }
+            var bulletBehaviour = other.gameObject.GetComponent<Bullet>();
+            Damage(_isHead ? bulletBehaviour.Damage * _headshotMultiplier : bulletBehaviour.Damage);
+            bulletBehaviour.Release();
         }
     }
 
     private void Damage(float bulletDamage)
     {
-        
         int damge = (int)Math.Round(bulletDamage * _percentBlockDamage / convertPercents);
-
         TakeDamage?.Invoke(damge);
     }
 }
