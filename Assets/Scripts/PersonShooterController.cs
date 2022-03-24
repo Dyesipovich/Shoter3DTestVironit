@@ -31,23 +31,23 @@ public class PersonShooterController : MonoBehaviour
         _thirdPersonController = GetComponent<ThirdPersonController>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         AimShooting();
     }
 
     private void AimShooting()
     {
-        Vector3 mouseWorldPosition = Vector3.zero;
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 500f, _aimColliderLayerMask))
-        {
-            mouseWorldPosition = raycastHit.point;
-        }
-
         if (_input.aim)
         {
+            Vector3 mouseWorldPosition = Vector3.zero;
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, 500f, _aimColliderLayerMask))
+            {
+                mouseWorldPosition = raycastHit.point;
+            }
+
             AimState(_aimApproximation, _aimSensitivity, true, false);
             
             Vector3 worldAimTarget = mouseWorldPosition;

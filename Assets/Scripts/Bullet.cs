@@ -23,12 +23,7 @@ public class Bullet : MonoBehaviour
         bulletRigidbody.velocity = transform.forward * Speed * Time.deltaTime;
     }
 
-    /// <summary>
-    /// <para>Says that this instance is no longer needed</para>
-    /// <para>ToDo: Make it Poolable</para>
-    /// </summary>
-
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisionExit(Collision collision)
     {
         _objectPool.ReturnToPool();
     }
