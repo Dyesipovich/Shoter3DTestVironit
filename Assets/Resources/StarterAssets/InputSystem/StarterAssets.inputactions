@@ -70,7 +70,7 @@
                 },
                 {
                     "name": "WeaponReload",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "fde785e3-6bf3-43d0-878b-d05b64bf1c7d",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -294,7 +294,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "WeaponReload",
                     "isComposite": false,
                     "isPartOfComposite": false

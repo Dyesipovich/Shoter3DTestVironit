@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.Pool;
 using System;
+using System.Collections;
 
 [RequireComponent(typeof(ObjectPool))]
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private float _bulletLifetimeAfterCollision = 1f;
+    
     private float _bulletDamage = 1;
     public float Damage => _bulletDamage;
 
@@ -12,6 +14,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody bulletRigidbody => _bulletRigidbody is null ? _bulletRigidbody = GetComponent<Rigidbody>() : _bulletRigidbody;
 
     private ObjectPool _objectPool;
+
 
     private void Awake()
     {
@@ -23,8 +26,14 @@ public class Bullet : MonoBehaviour
         bulletRigidbody.velocity = transform.forward * Speed * Time.deltaTime;
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        StartCoroutine(BulletTimeDestroy());
+    }
+
+    private IEnumerator BulletTimeDestroy()
+    {
+        yield return new WaitForSeconds(_bulletLifetimeAfterCollision);
         _objectPool.ReturnToPool();
     }
 }

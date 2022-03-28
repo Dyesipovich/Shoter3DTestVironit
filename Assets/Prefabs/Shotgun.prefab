@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2792519312419794662}
   m_LocalRotation: {x: 0.028104374, y: 0.4395306, z: -0.0465943, w: 0.89657795}
-  m_LocalPosition: {x: -0.003, y: -0.0076, z: 0.495}
+  m_LocalPosition: {x: -0.003, y: 0.0495, z: 0.575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -291,7 +291,8 @@ GameObject:
   - component: {fileID: 7282011335679889796}
   - component: {fileID: 7308200145374291768}
   - component: {fileID: 7300301969782532538}
-  - component: {fileID: 1626972917590275145}
+  - component: {fileID: 2388914755995808991}
+  - component: {fileID: 1418040787562762566}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -369,7 +370,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1626972917590275145
+--- !u!114 &2388914755995808991
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,11 +379,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7285450989775622748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be83a57bad6083e47a790afcc4db023a, type: 3}
+  m_Script: {fileID: 11500000, guid: 07905e7dbcfc6244ba87ebf8e0e69083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: -116343559052719648, guid: b26cc0dcf80637b438ba3ebce0a759a9, type: 3}
+  _minCapacity: 0
+  _maxCapacity: 5
+  _autoExpand: 0
+--- !u!114 &1418040787562762566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7285450989775622748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbd5e6de5aaf4847b5e8c58bd8153b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 70
-  _bulletPrefab: {fileID: 5579400723756974476, guid: b26cc0dcf80637b438ba3ebce0a759a9, type: 3}
   _numberClips: 3
   _numberBulletsInClip: 30
   _bulletSpeed: 1000

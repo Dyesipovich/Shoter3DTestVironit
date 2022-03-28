@@ -18,32 +18,51 @@ public class Firearms : Weapon
     [SerializeField, Min(1)] private float _weaponRelodSpeed;
 
     private Pool _pool;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         PersonShooterController.WeaponTriggerPressed += DealingDamage;
+        PersonShooterController.WeaponReloding += WeaponReload;
         BulletUIInitialize?.Invoke(_numberClips, _numberBulletsInClip);
         _pool = GetComponent<Pool>();
     }
 
     public override void DealingDamage(Vector3 mouseWorldPosition)
     {
-        Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
-        var newBullet = _pool.GetFreeElement(_bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-
-        if (!newBullet.TryGetComponent<Bullet>(out var bulletBehaviour))
+        if(_numberBulletsInClip > 0)
         {
-            throw new MissingComponentException();
+            Vector3 aimDirection = (mouseWorldPosition - _bulletSpawnPosition.position).normalized;
+            var newBullet = _pool.GetFreeElement(_bulletSpawnPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+
+            if (!newBullet.TryGetComponent<Bullet>(out var bulletBehaviour))
+            {
+                throw new MissingComponentException();
+            }
+
+            bulletBehaviour.Init(_bulletSpeed, _damage);
+            _audioSource.PlayOneShot(MusicScriptableObject.GetAudioClipByType(AudioType.Shooting));
+
+            _numberBulletsInClip --;
+            if (_numberBulletsInClip == 0)
+            {
+                WeaponReload();
+            }
         }
-        
-        bulletBehaviour.Init(_bulletSpeed, _damage);
+        // звук автомата без патронов
+
     }
     public virtual void WeaponReload()
     {
+        if(_numberBulletsInClip == 0 && _numberClips > 0)
+        {
+
+        }
 
     }
 
     private void OnDestroy()
     {
         PersonShooterController.WeaponTriggerPressed -= DealingDamage;
+        PersonShooterController.WeaponReloding += WeaponReload;
     }
 }

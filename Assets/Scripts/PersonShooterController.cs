@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PersonShooterController : MonoBehaviour
 {
     public static event Action<Vector3> WeaponTriggerPressed;
+    public static event Action WeaponReloding;
 
     [SerializeField] private CinemachineVirtualCamera _personFollowComponent;
 
@@ -34,6 +35,7 @@ public class PersonShooterController : MonoBehaviour
     private void FixedUpdate()
     {
         AimShooting();
+        ReloadingWeapon();
     }
 
     private void AimShooting()
@@ -69,6 +71,14 @@ public class PersonShooterController : MonoBehaviour
         if (!_input.shoot || !_input.aim) return;
         WeaponTriggerPressed?.Invoke(mouseWorldPosition);
         _input.shoot = false;
+    }
+
+    private void ReloadingWeapon()
+    {
+        if (_input.weaponReloading)
+        {
+            WeaponReloding?.Invoke();
+        }
     }
 
     private void AimState(float aimValue, float sensitivity, bool crosshairEnabled, bool rotateOnMove)
