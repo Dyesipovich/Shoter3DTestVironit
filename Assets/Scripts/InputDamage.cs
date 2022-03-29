@@ -26,7 +26,6 @@ public class InputDamage : MonoBehaviour
     private void Damage(float bulletDamage)
     {
         int damge = (int)Math.Round(bulletDamage * _percentBlockDamage / convertPercents);
-        //TakeDamage?.Invoke(damge);
-        print(damge);
+        TakeDamage?.Invoke(damge);
     }
 }

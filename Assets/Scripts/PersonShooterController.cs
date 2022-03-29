@@ -25,11 +25,13 @@ public class PersonShooterController : MonoBehaviour
 
     private StarterAssetsInputs _input;
     private ThirdPersonController _thirdPersonController;
+    private bool _isReload = true;
 
     private void Awake()
     {
         _input = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
+        Firearms.CanReload += OnCanReload;
     }
 
     private void FixedUpdate()
@@ -40,7 +42,7 @@ public class PersonShooterController : MonoBehaviour
 
     private void AimShooting()
     {
-        if (_input.aim)
+        if (_input.aim && _isReload)
         {
             Vector3 mouseWorldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -75,11 +77,13 @@ public class PersonShooterController : MonoBehaviour
 
     private void ReloadingWeapon()
     {
-        if (_input.weaponReloading)
+        if (_input.weaponReloading && _isReload)
         {
             WeaponReloding?.Invoke();
         }
     }
+
+    private void OnCanReload(bool flag) => _isReload = flag;
 
     private void AimState(float aimValue, float sensitivity, bool crosshairEnabled, bool rotateOnMove)
     {
@@ -87,5 +91,10 @@ public class PersonShooterController : MonoBehaviour
         _thirdPersonController.SetSensitivity(sensitivity);
         _thirdPersonController.SetRotateOnMove(rotateOnMove);
         _crosshair.enabled = crosshairEnabled;
+    }
+
+    private void OnDestroy()
+    {
+        Firearms.CanReload -= OnCanReload;
     }
 }

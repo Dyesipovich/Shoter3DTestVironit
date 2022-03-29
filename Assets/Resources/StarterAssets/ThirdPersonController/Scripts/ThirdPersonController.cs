@@ -115,7 +115,6 @@ namespace StarterAssets
 
             AssignAnimationIDs();
 
-            // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }

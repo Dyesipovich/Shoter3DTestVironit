@@ -5,35 +5,50 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private TMP_Text _idleHealth;
     [SerializeField] private TMP_Text _health;
-    [SerializeField] private TMP_Text _idleBullets;
+    [SerializeField] private TMP_Text _allBullets;
     [SerializeField] private TMP_Text _idleBulletsClip;
-    [SerializeField] private TMP_Text _bullets;
+    [SerializeField] private TMP_Text _bulletsCount;
     [SerializeField] private TMP_Text FirstTeameScore;
     [SerializeField] private TMP_Text SecondTeameScore;
+    
+    private readonly string _line = "/";
 
     private void Awake()
     {
         PersonHealthCharacteristics.HelthUIInitialize += OnHelthInitialize;
-        Firearms.BulletUIInitialize += OnBulletInitialize;
+        Firearms.BulletStartInitialize += OnBulletInitialize;
+        Firearms.BulletsCountChange += OnBulletsCountChange;
+        Firearms.ReloadingWeapon += OnReloadingWeapon;
     }
 
     private void OnHelthInitialize(int health)
     {
-        _idleHealth.text = health.ToString();
+        _idleHealth.text = health.ToString() + _line;
         _health.text = _idleHealth.text;
     }
 
-    private void OnBulletInitialize(int numberClips, int numberBulletsInClip)
+    private void OnBulletInitialize(int allBullets, int bulletsCount, int maxBulletInClip)
     {
-        int numberBullets = numberClips * numberBulletsInClip;
-        _idleBullets.text = numberBullets.ToString();
-        _idleBulletsClip.text = numberBulletsInClip.ToString();
-        _bullets.text = _idleBullets.text;
+        _allBullets.text = allBullets.ToString();
+        _idleBulletsClip.text = _line + maxBulletInClip.ToString();
+        _bulletsCount.text = bulletsCount.ToString();
+    }
+
+    private void OnBulletsCountChange(int bulletsCount)
+    {
+        _bulletsCount.text = bulletsCount.ToString();
+    }
+    private void OnReloadingWeapon (int allBullets, int bulletsCount)
+    {
+        _allBullets.text = allBullets.ToString();
+        _bulletsCount.text = bulletsCount.ToString ();
     }
 
     private void OnDestroy()
     {
         PersonHealthCharacteristics.HelthUIInitialize -= OnHelthInitialize;
-        Firearms.BulletUIInitialize -= OnBulletInitialize;
+        Firearms.BulletStartInitialize -= OnBulletInitialize;
+        Firearms.BulletsCountChange -= OnBulletsCountChange;
+        Firearms.ReloadingWeapon -= OnReloadingWeapon;
     }
 }

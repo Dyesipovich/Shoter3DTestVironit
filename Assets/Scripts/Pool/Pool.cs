@@ -19,7 +19,6 @@ public class Pool : MonoBehaviour
     {
         CreatePool();
     }
-
     private void OnValidate()
     {
         if (_autoExpand)
@@ -27,7 +26,6 @@ public class Pool : MonoBehaviour
             _maxCapacity = Int32.MaxValue;
         }
     }
-
     private void CreatePool()
     {
         _pool = new List<ObjectPool>(_minCapacity);
@@ -37,7 +35,6 @@ public class Pool : MonoBehaviour
             CreateElement();
         }
     }
-
     private ObjectPool CreateElement(bool isActiveByDefault = false)
     {
         var createObject = Instantiate (_prefab);
@@ -47,7 +44,6 @@ public class Pool : MonoBehaviour
 
         return createObject;
     }
-
     public bool TryGetElement(out ObjectPool element)
     {
         foreach (var item in _pool)
@@ -63,7 +59,6 @@ public class Pool : MonoBehaviour
         element = null;
         return false;
     }
-
     public ObjectPool GetFreeElement(Vector3 position, Quaternion rotation)
     {
         var element = GetFreeElement(position);
@@ -76,7 +71,6 @@ public class Pool : MonoBehaviour
         element.transform.position = position;
         return element;
     }
-
     public ObjectPool GetFreeElement()
     {
         if(TryGetElement(out var element))
