@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 [RequireComponent(typeof(ObjectPool))]
@@ -15,7 +14,6 @@ public class Bullet : MonoBehaviour
 
     private ObjectPool _objectPool;
 
-
     private void Awake()
     {
         _objectPool = GetComponent<ObjectPool>();
@@ -26,7 +24,7 @@ public class Bullet : MonoBehaviour
         bulletRigidbody.velocity = transform.forward * Speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter()
     {
         StartCoroutine(BulletTimeDestroy());
     }

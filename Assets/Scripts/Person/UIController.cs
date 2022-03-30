@@ -15,16 +15,21 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        PersonHealthCharacteristics.HelthUIInitialize += OnHelthInitialize;
+        PersonHealthCharacteristics.HelthStartInitialize += OnHelthInitialize;
         Firearms.BulletStartInitialize += OnBulletInitialize;
         Firearms.BulletsCountChange += OnBulletsCountChange;
         Firearms.ReloadingWeapon += OnReloadingWeapon;
+        PersonHealthCharacteristics.HelthChange += OnHealthChange;
     }
 
     private void OnHelthInitialize(int health)
     {
         _idleHealth.text = health.ToString() + _line;
         _health.text = _idleHealth.text;
+    }
+    private void OnHealthChange(int damage)
+    {
+
     }
 
     private void OnBulletInitialize(int allBullets, int bulletsCount, int maxBulletInClip)
@@ -46,7 +51,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        PersonHealthCharacteristics.HelthUIInitialize -= OnHelthInitialize;
+        PersonHealthCharacteristics.HelthStartInitialize -= OnHelthInitialize;
         Firearms.BulletStartInitialize -= OnBulletInitialize;
         Firearms.BulletsCountChange -= OnBulletsCountChange;
         Firearms.ReloadingWeapon -= OnReloadingWeapon;

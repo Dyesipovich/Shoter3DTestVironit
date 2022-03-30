@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Pool))]
 public class Firearms : Weapon
 {
-    public static Action<int, int, int> BulletStartInitialize;
-    public static Action<int> BulletsCountChange;
-    public static Action<int, int> ReloadingWeapon;
-    public static Action<bool> CanReload;
+    public static event Action<int, int, int> BulletStartInitialize;
+    public static event Action<int> BulletsCountChange;
+    public static event Action<int, int> ReloadingWeapon;
+    public static event Action<bool> CanReload;
 
     [Header("BulletCharacteristics")]
     [SerializeField, Min(1)] private int _numberClips;
@@ -20,7 +20,6 @@ public class Firearms : Weapon
 
     [Space(5)]
     [Header("WeaponCharacteristics")]
-    [SerializeField, Min(1)] private float _weaponRateOfFire;
     [SerializeField, Min(1)] private float _weaponRelodTime;
 
     private Pool _pool;

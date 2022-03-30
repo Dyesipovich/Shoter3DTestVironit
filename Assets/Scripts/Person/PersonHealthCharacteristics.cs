@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PersonHealthCharacteristics : MonoBehaviour
 {
-    public static event Action<int> HelthUIInitialize;
-    public static Action<int> HelthChange;
-    public static Action Died;
+    public static event Action<int> HelthStartInitialize;
+    public static event Action<int> HelthChange;
+    public static event Action Died;
 
     [SerializeField, Min(1)] private int _health;
 
     private void Awake()
     {
-        HelthUIInitialize?.Invoke(_health);
+        HelthStartInitialize?.Invoke(_health);
 
         InputDamage.TakeDamage += OnTakeDamage;
     }

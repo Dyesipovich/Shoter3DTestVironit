@@ -36,13 +36,16 @@ public class PersonShooterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        AimShooting();
-        ReloadingWeapon();
+        if(_isReload)
+        {
+            AimShooting();
+            ReloadingWeapon();
+        }
     }
 
     private void AimShooting()
     {
-        if (_input.aim && _isReload)
+        if (_input.aim)
         {
             Vector3 mouseWorldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -67,7 +70,6 @@ public class PersonShooterController : MonoBehaviour
             AimState(_aimIdle, _idleSensitivity, false, true);
         }
     }
-
     private void Shoot (Vector3 mouseWorldPosition)
     {
         if (!_input.shoot || !_input.aim) return;
@@ -77,7 +79,7 @@ public class PersonShooterController : MonoBehaviour
 
     private void ReloadingWeapon()
     {
-        if (_input.weaponReloading && _isReload)
+        if (_input.weaponReloading)
         {
             WeaponReloding?.Invoke();
         }
@@ -92,7 +94,6 @@ public class PersonShooterController : MonoBehaviour
         _thirdPersonController.SetRotateOnMove(rotateOnMove);
         _crosshair.enabled = crosshairEnabled;
     }
-
     private void OnDestroy()
     {
         Firearms.CanReload -= OnCanReload;
